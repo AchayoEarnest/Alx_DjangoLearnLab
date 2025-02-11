@@ -1,2 +1,10 @@
-retrieved_book = Book.objects.get(id=book.id)
+## Retrieve a Book Instance
+
+### **Command:**
+
+```python
+from bookshelf.models import Book
+
+retrieved_book = Book.objects.get(title="1984")
 print(retrieved_book.title, retrieved_book.author, retrieved_book.publication_year)
+```
