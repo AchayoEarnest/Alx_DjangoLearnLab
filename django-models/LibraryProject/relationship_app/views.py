@@ -29,7 +29,7 @@ def register(request):
             return redirect('list_books')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
