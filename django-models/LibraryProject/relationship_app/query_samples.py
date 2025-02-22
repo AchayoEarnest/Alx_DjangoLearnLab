@@ -17,18 +17,12 @@ def books_by_author(author_name):
 
 # List all books in a library.
 def books_in_library(library_name):
-    library = Library.objects.get(name=library_name).first()
-    if library:
+        library = Library.objects.get(name=library_name)
         return [book.title for book in library.books.all()]
-    return []
-
-
 
 
 # Retrieve the librarian for a library.
 def librarian_of_library(library_name):
-    library = Library.objects.filter(name=library_name).first()
-    if library:
-        librarian = Librarian.objects.filter(library=library).first()
-        return librarian if librarian else None
-    return None
+        library = Library.objects.get(name=library_name)
+        return library.librarian.name
+  
