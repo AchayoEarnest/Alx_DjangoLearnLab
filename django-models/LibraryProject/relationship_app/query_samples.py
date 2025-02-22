@@ -26,3 +26,9 @@ def books_in_library(library_name):
 
 
 # Retrieve the librarian for a library.
+def librarian_of_library(library_name):
+    library = Library.objects.filter(name=library_name).first()
+    if library:
+        librarian = Librarian.objects.filter(library=library).first()
+        return librarian if librarian else None
+    return None
