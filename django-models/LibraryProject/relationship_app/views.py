@@ -8,7 +8,7 @@ from django.views.generic import DetailView
 # function for listing books
 def list_books(request):
     books = Book.objects.all()
-    return(request, 'list_books.html', {'books' : books})
+    return(request, 'relationship_app/list_books.html', {'books' : books})
 
 
 # class view for displaying library details
