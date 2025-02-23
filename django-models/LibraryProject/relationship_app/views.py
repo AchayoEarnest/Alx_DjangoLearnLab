@@ -5,7 +5,7 @@ from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-# from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -61,7 +61,11 @@ def member_view(request):
     return HttpResponse("Welcome, Member!")
 
 def is_admin(user):
-    return user.profile.role == "Admin"
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
 
 def admin_librarian(user):
     return user.profile.role == "Librarian"
