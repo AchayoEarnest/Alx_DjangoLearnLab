@@ -24,7 +24,7 @@ urlpatterns = [
 
     # role based
     path('admin-view/', views.admin_view, name='admin_view'),
-    path('librarian-view/', user_passes_test(is_librarian)(librarian_view), name='librarian_view'),
+    path('librarian-view/', views.librarian_view, name='librarian_view'),
     path('member-view/', user_passes_test(is_member)(member_view), name='member_view'),
     
 ]

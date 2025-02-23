@@ -67,8 +67,12 @@ def is_admin(user):
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
-def admin_librarian(user):
-    return user.profile.role == "Librarian"
+def is_librarian(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.profile.role == 'Librarian'
+
+@user_passes_test(is_librarian)
+def admin_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
 
 def admin_member(user):
     return user.profile.role == "Member"
