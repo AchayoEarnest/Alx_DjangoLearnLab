@@ -1,8 +1,8 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from . import views
-from django.contrib.auth.decorators import user_passes_test
-from .views import list_books, LibraryDetailView, register, admin_view, librarian_view, member_view
+from .views import list_books, LibraryDetailView
+from .views import add_book, edit_book, delete_book
 
 
 urlpatterns = [
@@ -16,5 +16,9 @@ urlpatterns = [
     path('admin-view/', views.admin_view, name='admin_view'),
     path('librarian-view/', views.librarian_view, name='librarian_view'),
     path('member-view/', views.member_view, name='member_view'),
+
+    path('books/add/', add_book, name='add_book'),
+    path('books/edit/<int:book_id>/', edit_book, name='edit_book'),
+    path('books/delete/<int:book_id>/', delete_book, name='delete_book'),
     
 ]
