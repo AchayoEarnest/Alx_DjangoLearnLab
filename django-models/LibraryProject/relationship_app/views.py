@@ -5,6 +5,7 @@ from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+# from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -48,3 +49,22 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+def admin_view(request):
+    return HttpResponse("Welcome, Admin!")
+
+def librarian_view(request):
+    return HttpResponse("Welcome, Librarian!")
+
+def member_view(request):
+    return HttpResponse("Welcome, Member!")
+
+def is_admin(user):
+    return user.profile.role == "Admin"
+
+def admin_librarian(user):
+    return user.profile.role == "Librarian"
+
+def admin_member(user):
+    return user.profile.role == "Member"
