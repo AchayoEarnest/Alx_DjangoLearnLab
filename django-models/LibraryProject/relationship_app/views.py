@@ -75,33 +75,33 @@ def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
 
-@permission_required('relationship_app.can_add_book', raise_exception=True)
+@permission_required("relationship_app.can_add_book")
 def add_book(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('book_list')
+            return redirect("add_book")  # Redirect to book list or another page
     else:
         form = BookForm()
-    return render(request, 'books/add_book.html', {'form': form})
+    return render(request, "relationship_app/book_form.html", {"form": form})
 
-@permission_required('relationship_app.can_change_book', raise_exception=True)
+@permission_required("relationship_app.can_change_book")
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('book_list')
+            return redirect("edit_book", book_id=book.id)
     else:
         form = BookForm(instance=book)
-    return render(request, 'books/edit_book.html', {'form': form, 'book': book})
+    return render(request, "relationship_app/book_form.html", {"form": form})
 
-@permission_required('relationship_app.can_delete_book', raise_exception=True)
+@permission_required("relationship_app.can_delete_book")
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
         book.delete()
-        return redirect('book_list')
-    return render(request, 'books/delete_book.html', {'book': book})
+        return redirect("add_book")  # Redirect to book list after deletion
+    return render(request, "relationship_app/confirm_delete.html", {"book": book})
