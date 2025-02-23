@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import user_passes_test
 # function for listing books
 def list_books(request):
     books = Book.objects.all()
-    return(request, 'relationship_app/list_books.html', {'books' : books})
+    return render(request, 'relationship_app/list_books.html', {'books': books})
 
 
 # class view for displaying library details
@@ -61,11 +61,11 @@ def is_librarian(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.profile.role == 'Librarian'
 
 @user_passes_test(is_librarian)
-def admin_view(request):
+def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 
 def is_member(user):
-    return user.user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
 @user_passes_test(is_member)
 def member_view(request):
