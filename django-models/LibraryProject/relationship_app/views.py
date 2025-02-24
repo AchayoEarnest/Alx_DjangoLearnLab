@@ -81,7 +81,7 @@ def add_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("add_book")  # Redirect to book list or another page
+            return redirect("add_book")
     else:
         form = BookForm()
     return render(request, "relationship_app/book_form.html", {"form": form})
@@ -103,5 +103,5 @@ def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
         book.delete()
-        return redirect("add_book")  # Redirect to book list after deletion
+        return redirect("add_book") 
     return render(request, "relationship_app/confirm_delete.html", {"book": book})
