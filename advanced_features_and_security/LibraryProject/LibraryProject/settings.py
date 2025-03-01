@@ -132,3 +132,6 @@ LOGOUT_REDIRECT_URL = "/login/"
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # Default backend
 ]
+
+
+AUTH_USER_MODEL = 'bookshelf.User'
