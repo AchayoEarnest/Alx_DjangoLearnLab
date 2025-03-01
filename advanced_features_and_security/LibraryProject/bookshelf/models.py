@@ -17,7 +17,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, email=email, date_of_birth=date_of_birth, profile_photo=profile_photo, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-        return User
+        return CustomUser
 
     def create_superuser(self, username, email, password=None, **extra_fields):
 
@@ -27,7 +27,7 @@ class CustomUserManager(BaseUserManager):
         return self.create(username, email, password, **extra_fields)
 
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="profile_photos/", null=True, blank=True)
