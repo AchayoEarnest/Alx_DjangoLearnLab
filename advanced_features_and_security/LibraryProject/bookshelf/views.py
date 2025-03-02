@@ -14,12 +14,12 @@ def book_list(request):
 @permission_required('bookshelf.add_book', raise_exception=True)  # Corrected permission
 def book_create(request):
     if request.method == "POST":
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("book_list")
     else:
-        form = BookForm()
+        form = ExampleForm()
     
     return render(request, "bookshelf/book_form.html", {"form": form})
 
@@ -28,12 +28,12 @@ def book_create(request):
 def book_edit(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
-        form = BookForm(request.POST, instance=book)
+        form = ExampleForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
             return redirect("book_list")
     else:
-        form = BookForm(instance=book)
+        form = ExampleForm(instance=book)
     
     return render(request, "bookshelf/book_form.html", {"form": form})
 
@@ -46,3 +46,14 @@ def book_delete(request, book_id):
         return redirect("book_list")
     
     return render(request, "bookshelf/book_confirm_delete.html", {"book": book})
+
+def example_form_view(request):
+    if request.method == "POST":
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process form data
+            print(form.cleaned_data)
+    else:
+        form = ExampleForm()
+    
+    return render(request, "bookshelf/form_example.html", {"form": form})
