@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a2ya4y-!gd&%-&e3^x0kl%f*9i8el=17=k(wf&#etchs*-$qwb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost'
+]
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf', 
     'relationship_app',
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -134,4 +138,25 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
+AUTH_USER_MODEL = "bookshelf.CustomUser"
+
+# ENABLE BROWSER SECURITY
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# cookies are sent over HTTPS only
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# CSP
+CSP_DEFAULT_SRC = ("'Self'")
+CSP_SCRIPT_SRC = ("'Self'", "http://cahayo-cdn.com")
+CSP_STYLE_SRC = ("'Self'", "http://cahayo-cdn.com")
+
+# Secure referrer policy
+SECURE_REFERRER_POLICY = 'same-origin'
+
+# Force HTTPS
+SECURE_SSL_REDIRECT = True
+
