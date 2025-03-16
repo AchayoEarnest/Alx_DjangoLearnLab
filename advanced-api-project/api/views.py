@@ -1,5 +1,5 @@
 from .permissions import IsAdminOrReadOnly
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics, viewsets, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
