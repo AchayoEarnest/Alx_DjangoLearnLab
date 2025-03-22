@@ -44,7 +44,7 @@ class PostListView(ListView):
     ordering = ['-published_date']
 
 
-class PostDetailView(DeleteView):
+class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
@@ -56,4 +56,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    
+    pass
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    pass
 
