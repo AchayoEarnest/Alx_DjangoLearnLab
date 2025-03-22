@@ -21,7 +21,7 @@ def register(request):
     return render(request, 'blog/register.html', {'form': form})  
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'blog/home.html')
     
 
 @login_required
@@ -41,3 +41,9 @@ class PostListView(ListView):
     template_name = 'post_list.html'
     context_object_name = 'posts'
     ordering = ['-published_date']
+
+
+class PostDetailView(DeleteView):
+    model = Post
+    template_name = 'post_detail.html'
+
