@@ -38,7 +38,7 @@ def profile(request):
     else:
         form = ProfileUpdateForm(instance=request.user.profile)
     user_profile = request.user.profile
-    return render(request, 'profile.html', {'form': form, 'profile': user_profile})
+    return render(request, 'blog/profile.html', {'form': form, 'profile': user_profile})
 
 class PostListView(ListView):
     model = Post
@@ -49,7 +49,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'blog/post_detail.html'
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
