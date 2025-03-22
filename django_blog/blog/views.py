@@ -21,7 +21,8 @@ def register(request):
     return render(request, 'blog/register.html', {'form': form})  
 
 def home(request):
-    pass
+    return render(request, 'home.html')
+    
 
 @login_required
 def profile(request):
