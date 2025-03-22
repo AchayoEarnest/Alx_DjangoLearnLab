@@ -20,7 +20,10 @@ def register(request):
             return redirect('profile')
     else:
         form = RegisterForm()
-    return render(request, 'blog/register.html', {'form': form}) 
+    return render(request, 'blog/register.html', {'form': form})  
+
+def home(request):
+    return render(request, 'blog/home.html')
     
 
 @login_required
