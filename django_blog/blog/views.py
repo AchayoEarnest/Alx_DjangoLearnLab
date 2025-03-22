@@ -50,6 +50,10 @@ class PostDetailView(DeleteView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'post_form.html'
     form_class = PostForm
+    template_name = 'post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
