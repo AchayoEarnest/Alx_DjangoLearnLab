@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, PostForm
 from django.contrib.auth import login
 from django.contrib import messages
 from .forms import RegisterForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 def register(request):
@@ -46,4 +47,9 @@ class PostListView(ListView):
 class PostDetailView(DeleteView):
     model = Post
     template_name = 'post_detail.html'
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = 'post_form.html'
+    form_class = PostForm
 
