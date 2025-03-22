@@ -110,4 +110,18 @@ def edit_comment(request, comment_id):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return redirect(request, 'comment/edit_comment', {'form' : form, 'comment': comment})
+            return redirect('post_detail', post_id=comment.post.id)
+        else:
+            form = CommentForm(instance=comment)
+        return redirect(request, 'comment/edit_comment', {'form' : form, 'comment': comment})
+        
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return redirect('post_detail', post_id=comment.post.id)
+
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('post_detail', post_id=comment.post.id)
+    return render(request, 'comments/delete_comment.html', {'comment': comment})
