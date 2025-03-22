@@ -4,6 +4,8 @@ from django.contrib.auth import login
 from django.contrib import messages
 from .forms import RegisterForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Post
 
 # Create your views here.
 def register(request):
@@ -32,3 +34,9 @@ def profile(request):
     else:
         form = ProfileUpdateForm(instance=request.user.profile)
     return render(request, 'registration/profile.html', {'form': form})
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'post_list.html'
+    context_object_name = 'posts'
+    ordering = ['-published_date']
