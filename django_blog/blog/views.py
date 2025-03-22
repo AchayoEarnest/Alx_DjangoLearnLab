@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import RegisterForm, ProfileUpdateForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Comment
+from .models import Post, Comment,Profile
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -28,7 +28,7 @@ def home(request):
     
 
 @login_required
-def Profile(request):
+def profile(request):
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
@@ -37,7 +37,8 @@ def Profile(request):
             return redirect('profile')
     else:
         form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'registration/profile.html', {'form': form})
+    user_profile = request.user.profile
+    return render(request, 'profile.html', {'form': form, 'profile': user_profile})
 
 class PostListView(ListView):
     model = Post
