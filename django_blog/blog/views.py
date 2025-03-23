@@ -9,6 +9,7 @@ from .models import Post, Comment,Profile
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
+from django.db.models import Q
 
 # Create your views here.
 def register(request):
@@ -174,14 +175,16 @@ def posts_by_tag(request, tag_name):
 
 
 # search view
-def search_posts(request):
+def post_list(request):
     query = request.GET.get('q')
     posts = Post.objects.all()
 
     if query:
-        posts = posts.filter(
+        posts = Post.objects.filter(
             Q(title_icontains=query) |
             Q(content_icontains=query) |
             Q(tags_name_icontains=query)
         ).distinct()
-    return render(request, 'blog/posts_by_tag.html', {'posts':posts, 'query': query})
+    else:
+        posts = Post.objects.all()
+    return render(request, 'blog/posts_by_tag.html', {'posts':posts})
