@@ -18,16 +18,24 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['image', 'bio']
 
+class TagWidget(forms.TextInput):
+    def __init__(self, attrs=None):
+        final_attrs = {'class': 'tag-widget', 'placeholder': 'Add tags...'}
+        if attrs:
+            final_attrs.update(attrs)
+            super().__init__(final_attrs)
 
 class PostForm(forms.ModelForm):
+    tags = TagField(widget=TagWidget())
+
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
 
-    tags = TagField(
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'})
-    )
+    # tags = TagField(
+    #     required=False,
+    #     widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'})
+    # )
 
 
 class CommentForm(forms.ModelForm):
