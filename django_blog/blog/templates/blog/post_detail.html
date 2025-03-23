@@ -1,8 +1,14 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/base.html' %} {% block content %}
+<h2>{{ post.title }}</h2>
+<p>By {{ post.author }} on {{ post.published_date|date:"F j, Y" }}</p>
+<p>{{ post.content }}</p>
+<a href="{% url 'posts' %}">Back to All Posts</a>
 
-{% block content %}
-  <h2>{{ post.title }}</h2>
-  <p>By {{ post.author }} on {{ post.published_date|date:"F j, Y" }}</p>
-  <p>{{ post.content }}</p>
-  <a href="{% url 'posts' %}">Back to All Posts</a>
+<p>
+  <strong>Tags:</strong>
+  {% for tag in post.tags.all %}
+  <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>{% if not
+  forloop.last %}, {% endif %} {% endfor %}
+</p>
+
 {% endblock %}

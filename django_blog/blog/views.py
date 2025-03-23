@@ -165,3 +165,23 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return self.object.post.get_absolute_url()
+    
+# displaying posts by tags
+def posts_by_tag(request, tag_name):
+    teg = get_object_or_404(Tag, name=tag_name)
+    posts = tag.posts.all()
+    return render(request, 'blog/posts_by_tag.html', {'posts':posts, 'tag': tag})
+
+
+# search view
+def search_posts(request):
+    query = request.GET.get('q')
+    posts = Post.objects.all()
+
+    if query:
+        posts = posts.filter(
+            Q(title_icontains=query) |
+            Q(content_icontains=query) |
+            Q(tags_name_icontains=query)
+        ).distinct()
+    return render(request, 'blog/posts_by_tag.html', {'posts':posts, 'query': query})
