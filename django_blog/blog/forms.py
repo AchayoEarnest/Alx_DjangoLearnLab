@@ -26,16 +26,19 @@ class TagWidget(forms.TextInput):
             super().__init__(final_attrs)
 
 class PostForm(forms.ModelForm):
-    tags = TagField(widget=TagWidget())
+    tags = TagField(
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'})
+    )
 
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your post title'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Write you content here ...'})
+        }
 
-    # tags = TagField(
-    #     required=False,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'})
-    # )
 
 
 class CommentForm(forms.ModelForm):
