@@ -188,3 +188,11 @@ def post_list(request):
     else:
         posts = Post.objects.all()
     return render(request, 'blog/posts_by_tag.html', {'posts':posts})
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+
+    def get_queryset(self):
+        tag = self.kwargs.get('tag_slug')
+        return Post.objects.filter(tags__slug=tag)

@@ -113,6 +113,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'blog', 'static'),
+    "/Users/earnest/Desktop/ALX/Alx_DjangoLearnLab/django_blog/blog/static",
 ]
 
 # Default primary key field type
