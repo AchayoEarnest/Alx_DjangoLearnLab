@@ -27,6 +27,7 @@ class TagWidget(forms.TextInput):
 
 class PostForm(forms.ModelForm):
     tags = TagField(
+        widget=TagWidget(),
         required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'})
     )
